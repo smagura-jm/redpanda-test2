@@ -1,3 +1,3 @@
-# CoreServices Template
+# Core Services Local Infrastructure
 
-- commit hook test
+Infrastructure and utilities to run Core Services locally for development
