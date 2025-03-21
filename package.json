@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "prepare": "husky",
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"Error: no test specified\"",
+    "start": "npx tsc && node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,10 @@
     "@eslint/js": "^9.22.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "husky": "^9.1.7",
-    "typescript-eslint": "^8.26.1"
+    "typescript-eslint": "^8.26.1",
+    "@types/node": "^22.13.11"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4"
   }
 }
