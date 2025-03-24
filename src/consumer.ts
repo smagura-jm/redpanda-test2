@@ -1,25 +1,31 @@
+import { POSDataReceivedV2 } from '@jm/coreserv.event-schemas/dist/event-schemas/POSDataReceived/v2';
 import { Kafka } from 'kafkajs';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 const kafka = new Kafka({
   clientId: 'CustomerService',
   brokers: ['localhost:19092'],
 });
 
-const consumer = kafka.consumer({ groupId: uuidv4() }); // we need a unique groupId I'll explain down
+const consumer = kafka.consumer({ groupId: uuid() });
 
-const handlePosDataReceived = (event: any) => {
-  console.log(
-    `Hello customer ${event.customer.firstName} ${event.customer.lastName}.`,
-  );
+const handlePOSDataReceived = (event: POSDataReceivedV2) => {
+  console.log('GOT MESSAGE:');
+
+  console.log(JSON.stringify(event));
 };
 
 const subscribe = async () => {
-  await consumer.subscribe({ topic: 'PosDataReceived' }).then(() =>
+  await consumer.subscribe({ topic: 'POSDataReceived' }).then(() =>
     consumer.run({
       eachMessage: async ({ message }) => {
-        const event = JSON.parse((message.value as Buffer).toString());
-        handlePosDataReceived(event);
+        if (!message.value) return;
+
+        const buffer = message.value;
+        const event = POSDataReceivedV2.decode(
+          new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength),
+        );
+        handlePOSDataReceived(event);
       },
     }),
   );
