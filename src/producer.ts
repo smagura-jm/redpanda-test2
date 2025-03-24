@@ -1,5 +1,6 @@
+import { POSDataReceivedV2 } from '@jm/coreserv.event-schemas/dist/event-schemas/POSDataReceived/v2';
 import { Kafka } from 'kafkajs';
-import { PosDataReceivedEvent } from './events';
+import { v4 as uuid } from 'uuid';
 
 const kafka = new Kafka({
   clientId: 'PosDataProcessor',
@@ -16,11 +17,13 @@ const disconnect = () => {
   return producer.disconnect();
 };
 
-// TODO use proto
-const sendMessage = (event: PosDataReceivedEvent) => {
+const sendMessage = (event: POSDataReceivedV2) => {
+  const bytes = POSDataReceivedV2.encode(event).finish();
+  const buffer = Buffer.from(bytes);
+
   return producer.send({
-    topic: 'PosDataReceived',
-    messages: [{ value: JSON.stringify(event) }],
+    topic: 'POSDataReceived',
+    messages: [{ value: buffer }],
   });
 };
 
@@ -28,9 +31,14 @@ export const producerMain = async () => {
   await connect();
   await sendMessage({
     customer: {
-      firstName: 'Sam',
-      lastName: 'Magura',
+      id: uuid(),
     },
+    item: {
+      id: uuid(),
+      newItemField: 'test',
+    },
+    ap: true,
+    newfield: 'test2',
   });
   await disconnect();
 };

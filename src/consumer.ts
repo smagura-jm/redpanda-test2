@@ -1,6 +1,5 @@
 import { Kafka } from 'kafkajs';
 import { v4 as uuidv4 } from 'uuid';
-import { PosDataReceivedEvent } from './events';
 
 const kafka = new Kafka({
   clientId: 'CustomerService',
@@ -9,7 +8,7 @@ const kafka = new Kafka({
 
 const consumer = kafka.consumer({ groupId: uuidv4() }); // we need a unique groupId I'll explain down
 
-const handlePosDataReceived = (event: PosDataReceivedEvent) => {
+const handlePosDataReceived = (event: any) => {
   console.log(
     `Hello customer ${event.customer.firstName} ${event.customer.lastName}.`,
   );

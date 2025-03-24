@@ -1,3 +1,4 @@
-# Core Services Local Infrastructure
+# redpanda-test2
 
-Infrastructure and utilities to run Core Services locally for development
+1. In `coreserv.event-schemas` directory, run `npm link`.
+1. In the `redpanda-test2` directory, run `npm link @jm/coreserv.event-schemas`.
