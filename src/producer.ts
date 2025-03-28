@@ -22,7 +22,7 @@ const sendMessage = (event: POSDataReceivedV2) => {
   const buffer = Buffer.from(bytes);
 
   return producer.send({
-    topic: 'POSDataReceived',
+    topic: 'POSData_Received',
     messages: [{ value: buffer }],
   });
 };
