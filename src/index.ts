@@ -1,5 +1,4 @@
 import { consumerDisconnect, consumerMain } from './consumer';
-import { producerMain } from './producer';
 
 const main = async () => {
   await consumerMain();
