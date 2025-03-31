@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 const kafka = new Kafka({
   clientId: 'CustomerService',
-  brokers: ['localhost:19092'],
+  brokers: ['localhost:19093'],
 });
 
 const consumer = kafka.consumer({ groupId: uuid() });
