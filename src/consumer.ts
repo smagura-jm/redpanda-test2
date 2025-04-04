@@ -1,4 +1,4 @@
-import { POSDataReceivedV1 } from '@jewelers-mutual-insurance/coreserv.event-schemas/dist/event-schemas/POSData_Received/v1.js';
+import { POSDataReceivedV1 } from '@jewelers-mutual-insurance/coreserv.event-schemas/dist/generated/event-schemas/POSData_Received/v1.js';
 import { Kafka } from 'kafkajs';
 import { v4 as uuid } from 'uuid';
 
